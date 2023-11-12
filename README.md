@@ -22,6 +22,7 @@ Currently, set to build the version `1.2.40` for `arm64` macOS.
 Clone the repository
 
 ```shell
+git clone https://github.com/rapatao/aseprite-macos-build.git
 ```
 
 Run the script:
