@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ASEPRITE_VERSION=1.2.40
-ASEPRITE_BRANCH="v${ASEPRITE_VERSION}"
+ASEPRITE_DEP=https://github.com/aseprite/aseprite/releases/download/v${ASEPRITE_VERSION}/Aseprite-v${ASEPRITE_VERSION}-Source.zip
 
 MACOS_SDK=`xcode-select -p`/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
 
@@ -10,22 +10,24 @@ SKIA_DEP=https://github.com/aseprite/skia/releases/download/m102-861e4743af/Skia
 MACOS_ARCH=arm64
 
 # cleanup
-rm -rf Aseprite.app/bin
+rm -rf Aseprite.app.tmpl/bin
 rm -rf build;
-rm -rf deps;
 
 # prepare path
 mkdir -p deps;
 mkdir -p build;
 
-# clone aseprite
-git clone --branch ${ASEPRITE_BRANCH} --depth 1 --recursive git@github.com:aseprite/aseprite.git deps/aseprite
+# download aseprite sources
+wget -c ${ASEPRITE_DEP} \
+  -O deps/aseprite-v${ASEPRITE_VERSION}.zip
+unzip -o deps/aseprite-v${ASEPRITE_VERSION}.zip -d deps/aseprite-v${ASEPRITE_VERSION}
 
-# download skia
+# download skia build
 wget -c ${SKIA_DEP} -O deps/skia.zip
 unzip -o deps/skia.zip -d deps/skia
 
-gsed -i "s/1.x-dev/${ASEPRITE_VERSION}/g" ${BASE_PATH}/deps/aseprite/src/ver/CMakeLists.txt
+# replace dev version
+gsed -i "s/${ASEPRITE_VERSION}-dev/${ASEPRITE_VERSION}/g" ${BASE_PATH}/deps/aseprite-v${ASEPRITE_VERSION}/src/ver/CMakeLists.txt
 
 # building
 cmake \
@@ -40,10 +42,15 @@ cmake \
   -DPNG_ARM_NEON:STRING=on \
   -G Ninja \
   -B ${BASE_PATH}/build/ \
-  ${BASE_PATH}/deps/aseprite
+  ${BASE_PATH}/deps/aseprite-v${ASEPRITE_VERSION}
 
 ninja -C ${BASE_PATH}/build/ aseprite
 
-cp -rf ${BASE_PATH}/build/bin ${BASE_PATH}/Aseprite.app/bin
+# copy build artfacts to macos app template
+cp -rf ${BASE_PATH}/build/bin ${BASE_PATH}/Aseprite.app.tmpl/bin
 
-cp -rf ${BASE_PATH}/Aseprite.app ${HOME}/Applications/Aseprite.app
+# remove old installation
+rm -rf ${HOME}/Applications/Aseprite.app
+
+# copy macos app to user applications path
+cp -rf ${BASE_PATH}/Aseprite.app.tmpl ${HOME}/Applications/Aseprite.app
