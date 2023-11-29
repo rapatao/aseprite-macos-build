@@ -2,7 +2,7 @@
 
 Provides an automated script to create a release app of [Aseprite](https://github.com/aseprite/aseprite) for macOS. The script automatically downloads the Aseprite source code, an official pre-built `SKIA` dependency, and creates a macOS app in the users `Applications` folder.
 
-Currently, set to build the version `1.2.40` for `arm64` macOS.
+Currently, set to build the version `1.3.1` for `arm64` macOS.
 
 ## Requirements
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ASEPRITE_VERSION=1.2.40
+ASEPRITE_VERSION=1.3.1
 ASEPRITE_DEP=https://github.com/aseprite/aseprite/releases/download/v${ASEPRITE_VERSION}/Aseprite-v${ASEPRITE_VERSION}-Source.zip
 
 MACOS_SDK=`xcode-select -p`/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
