@@ -1,3 +1,4 @@
 build/
 deps/
 Aseprite.app.tmpl/bin
+.DS_Store
