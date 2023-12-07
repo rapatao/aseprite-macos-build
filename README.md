@@ -13,7 +13,7 @@ It is possible to define which Aseprite version should be installed, as well as 
 * Make
     ````shell
     brew install make
-    ``
+    ```
 
 * CMake
     ```shell
