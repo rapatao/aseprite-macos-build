@@ -11,7 +11,7 @@ It is possible to define which Aseprite version should be installed, as well as 
 * XCode
 
 * Make
-    ````shell
+    ```shell
     brew install make
     ```
 
