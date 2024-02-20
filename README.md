@@ -57,5 +57,5 @@ make
 
 Ex.:
 ```shell
-make ASEPRITE_VERSION=1.3.2 MACOS_ARCH=arm64
+make ASEPRITE_VERSION=1.3.4 MACOS_ARCH=arm64
 ```
