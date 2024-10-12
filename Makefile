@@ -1,7 +1,7 @@
 MACOS_ARCH ?= `uname -m`
 MACOS_SDK ?= `xcode-select -p`/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
 
-ASEPRITE_VERSION ?= 1.3.5
+ASEPRITE_VERSION ?= 1.3.9.1
 ASEPRITE_DEP ?= https://github.com/aseprite/aseprite/releases/download/v${ASEPRITE_VERSION}/Aseprite-v${ASEPRITE_VERSION}-Source.zip
 ASEPRITE_DEP_PATH = aseprite-v${ASEPRITE_VERSION}
 
