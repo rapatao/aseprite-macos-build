@@ -15,6 +15,11 @@ SKIA_DEP_PATH = Skia-macOS-Release-$(SKIA_ARCH)
 
 BASE_PATH = `pwd`
 
+SED_CMD := $(shell command -v gsed 2> /dev/null)
+ifndef SED_CMD
+SED_CMD = sed
+endif
+
 all: download configure assemble install start
 
 download:
@@ -27,7 +32,7 @@ configure:
 	@unzip -o deps/$(SKIA_DEP_PATH).zip -d deps/$(SKIA_DEP_PATH)
 	@unzip -o deps/$(ASEPRITE_DEP_PATH).zip -d deps/$(ASEPRITE_DEP_PATH)
 
-	@gsed -i "s/${ASEPRITE_VERSION}-dev/${ASEPRITE_VERSION}/g" ${BASE_PATH}/deps/$(ASEPRITE_DEP_PATH)/src/ver/CMakeLists.txt
+	@${SED_CMD} -i "s/${ASEPRITE_VERSION}-dev/${ASEPRITE_VERSION}/g" ${BASE_PATH}/deps/$(ASEPRITE_DEP_PATH)/src/ver/CMakeLists.txt
 
 assemble:
 	@rm -rf ${BASE_PATH}/build
